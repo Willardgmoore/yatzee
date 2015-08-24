@@ -91,38 +91,25 @@ class Game
         # @players_stats[x] = {}
         @players_stats[x]["Player_#{x + 1}"] = player_name
       end
+      end
       puts "Player #{x + 1} is #{@players_stats[x]["Player_#{x + 1}"]}"   #diag
-    end
 
     def roll_dice(die = 5)
       die.times do 
         @rolled_dice << rand(6) + 1
-      end
-
     end
+
 
     def running_score
     end
 
     def whose_turn
-    
     end
 
     def turn
-      whose_turn
-      roll_dice
-
-      # Roll dice
-
     end
 
-  end
 end
 
-
 g = Game.new
-#g.welcome_to_yahtzee
-g.roll_dice
-
-puts
-puts "GAME OVER"
+g.welcome_to_yahtzee
