@@ -55,7 +55,7 @@ class Player
   attr_accessor :player_name, :score
 
   def initialize(name)
-   @player_name = name
+    @player_name = name
   end
 
 end
@@ -73,12 +73,6 @@ class Game
     @players_stats = []
   end
 
-  def roll_dice
-  end
-
-  def running_score
-  end
-
   def welcome_to_yahtzee
     print " 
     Welcome to the game of Yahtzee by hasbro
@@ -87,28 +81,48 @@ class Game
     puts "How many players would you like?"
     number_of_players = gets.chomp.to_i   # Establish array of hashes for @players_stats
     number_of_players.times do |x|
-    @players_stats << {"Player_#{x}" => "Player_#{x}", "score" => 0} 
+      @players_stats << {"Player_#{x + 1}" => "Player_#{x + 1}", "score" => 0} 
     end
     
     number_of_players.times do |x|    # Allow Players to choose custom name
-      puts "Choose a name for #{@players_stats[x]}."
+      puts "Choose a name for player #{x + 1}."
       player_name = gets.strip.capitalize
-binding.pry
       if player_name.length > 0   # Allows us to keep the default name Player_1 if user doesn't input a name
         # @players_stats[x] = {}
-      
+        @players_stats[x]["Player_#{x + 1}"] = player_name
       end
+      puts "Player #{x + 1} is #{@players_stats[x]["Player_#{x + 1}"]}"   #diag
+    end
+
+    def roll_dice(die = 5)
+      die.times do 
+        @rolled_dice << rand(6) + 1
       end
 
     end
-  end
 
-end
+    def running_score
+    end
+
+    def whose_turn
+    
+    end
+
+    def turn
+      whose_turn
+      roll_dice
+
+      # Roll dice
+
+    end
+
+  end
 end
 
 
 g = Game.new
+#g.welcome_to_yahtzee
+g.roll_dice
 
-g.welcome_to_yahtzee
-
-binding.pry
+puts
+puts "GAME OVER"
