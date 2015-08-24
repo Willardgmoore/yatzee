@@ -1,2 +1,0 @@
-# yatzee
-yatzee game
