@@ -52,12 +52,10 @@ require 'pry'
 
 
 class Player
-  attr_accessor :name, :score, :number_of_rolls
+  attr_accessor :player_name, :score
 
-  def initialize
-    number_of_rolls = 0
-    player_name = @player_name
-    score = 0
+  def initialize(name)
+   @player_name = name
   end
 
 end
@@ -68,34 +66,49 @@ end
 
 
 class Game
-  attr_accessor :running_score
+  attr_accessor :running_score, :players_stats
 
-  @running_score = 0
+  def initialize
+    @running_score = 0
+    @players_stats = []
+  end
 
   def roll_dice
   end
 
   def running_score
   end
-end
 
-def welcome_to_yahtzee
-  print " 
-  Welcome to the game of Yahtzee by hasbro
-  A game of Luck and skill
-  "
-  puts "How many players would you like?"
-  number_of_players = gets.chomp.to_i
+  def welcome_to_yahtzee
+    print " 
+    Welcome to the game of Yahtzee by hasbro
+    A game of Luck and skill
+    "
+    puts "How many players would you like?"
+    number_of_players = gets.chomp.to_i   # Establish array of hashes for @players_stats
+    number_of_players.times do |x|
+    @players_stats << {"Player_#{x}" => "Player_#{x}", "score" => 0} 
+    end
+    
+    number_of_players.times do |x|    # Allow Players to choose custom name
+      puts "Choose a name for #{@players_stats[x]}."
+      player_name = gets.strip.capitalize
+binding.pry
+      if player_name.length > 0   # Allows us to keep the default name Player_1 if user doesn't input a name
+        # @players_stats[x] = {}
+      
+      end
+      end
 
-  number_of_players.times do |x|
-    puts "Choose a name."
-    @player_name = gets.chomp.capitalize
-    Player.new
+    end
   end
+
+end
 end
 
-Game.new
 
-welcome_to_yahtzee
+g = Game.new
+
+g.welcome_to_yahtzee
 
 binding.pry
