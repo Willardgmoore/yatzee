@@ -109,23 +109,19 @@ def display_dice
   end
 end
 
-def running_score
-end
-
-def round
-
-end
-
 def game_over
   # checks to eval select_score_options == full for .last player
 end
 
 def reset
+  @saved_dice = []
+  @rolled_dice = []
   # reset each turns variables to zero
 end
 
 def game
   welcome_to_yahtzee
+  reset
   13.times do # => number of rounds
     @number_of_players.times do |x|  #Each player's turn
       #puts "It's your turn #{@players_stats[x]["Player_#{x + 1}"]}."
