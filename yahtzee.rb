@@ -6,6 +6,7 @@ class Player
 
   def initialize(name)
     @player_name = name
+    @score = 0
   end
 
 end
@@ -21,6 +22,7 @@ class Game
   def initialize
     @running_score = 0
     @players_stats = []
+    @players = []
   end
 
   def welcome_to_yahtzee
@@ -31,31 +33,25 @@ class Game
     puts "How many players would you like?"
     @number_of_players = gets.chomp.to_i   # Establish array of hashes for @players_stats
     @number_of_players.times do |x|
-      @players_stats << {"Player_#{x + 1}" => "Player_#{x + 1}", "score" => 0} 
-    end
-    
-    @number_of_players.times do |x|    # Allow Players to choose custom name
-      puts "Choose a name for player #{x + 1}."
-      player_name = gets.strip.capitalize
-      if player_name.length > 0   # Allows us to keep the default name Player_1 if user doesn't input a name
-        # @players_stats[x] = {}
-        @players_stats[x]["Player_#{x + 1}"] = player_name
-      end
-      puts "Player #{x + 1} is #{@players_stats[x]["Player_#{x + 1}"]}"   #diag
+      puts "What should player_#{x+1}'s name be?"
+      name = gets.chomp
+      @players << Player.new(name)
+      puts "Player_#{x+1} is #{@players[x].player_name}"
     end
   end
 
+
   def turn
     display_score_options  
-     3.times do unless @saved_dice.length <= 5
-       roll_dice(5 - @saved_dice.length)
-       display_dice
-       held_dice
-     end
-     end
-   display_score_options
-   select_score_options
+    3.times do unless @saved_dice.length <= 5
+      roll_dice(5 - @saved_dice.length)
+      display_dice
+      held_dice
+    end
   end
+  display_score_options
+  select_score_options
+end
 
 def display_score_options
   puts '''
@@ -102,8 +98,8 @@ def held_dice
   input_number = nil
   puts "Which of these dice do you want to keep? Enter each number, then type roll to roll again."
   unless input_number == 0
-  input_number = gets.chomp.to_i
-  @saved_dice << input_number
+    input_number = gets.chomp.to_i
+    @saved_dice << input_number
   end
 end
 
@@ -132,10 +128,10 @@ def game
   welcome_to_yahtzee
   13.times do # => number of rounds
     @number_of_players.times do |x|  #Each player's turn
-     puts "It's your turn #{@players_stats[x]["Player_#{x + 1}"]}."
-     turn
+      #puts "It's your turn #{@players_stats[x]["Player_#{x + 1}"]}."
+      turn
     end
-     reset
+    reset
   end
 
   game_over
